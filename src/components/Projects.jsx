@@ -1,13 +1,23 @@
-import React, { useRef } from 'react';
+ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiCode } from 'react-icons/fi';
-import { SiFlutter, SiFirebase, SiDart, SiGoogleplay } from 'react-icons/si';
+import { SiFlutter, SiFirebase, SiDart, SiGoogleplay, SiAppstore } from 'react-icons/si';
 
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const projects = [
+    {
+      title: 'Syopi E-commerce Fashion Store',
+      description: 'A modern e-commerce fashion app offering trendy clothing, deals, and seamless shopping experience. Features include product listings, authentication, cart, and order management with a clean architecture using Provider for state management.',
+      tags: ['Flutter', 'Firebase', 'REST API', 'Provider', 'Node.js', 'iOS', 'Android'],
+      links: {
+        appstore: 'https://apps.apple.com/in/app/syopi/id6747420245',
+        playstore: 'https://play.google.com/store/apps/details?id=com.syopi.usernew'
+      },
+      gradient: 'from-pink-500 to-rose-600',
+    },
     {
       title: 'KeyRoute',
       description: 'Vendor & User Apps built with Flutter featuring Google Maps integration, live tracking, and secure payment UI. Implemented REST APIs with MVVM architecture for scalable and maintainable code.',
@@ -150,6 +160,19 @@ const Projects = () => {
                     >
                       <SiGoogleplay size={20} />
                       <span className="text-sm">Play Store</span>
+                    </motion.a>
+                  )}
+                  {project.links.appstore && (
+                    <motion.a
+                      href={project.links.appstore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:bg-cyan-500/20 transition-all duration-300"
+                    >
+                      <SiAppstore size={20} />
+                      <span className="text-sm">App Store</span>
                     </motion.a>
                   )}
                   {project.links.demo && (

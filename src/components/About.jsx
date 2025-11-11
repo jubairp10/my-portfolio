@@ -15,7 +15,7 @@ const About = () => {
     {
       icon: FiCode,
       title: 'Clean Code',
-      description: 'Writing maintainable, scalable code following best practices and design patterns like MVVM.',
+      description: 'Writing maintainable, scalable code following best practices and design patterns like MVVM & MVC.',
     },
     {
       icon: FiZap,

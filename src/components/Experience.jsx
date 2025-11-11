@@ -8,7 +8,7 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'Jr. Flutter Developer',
+      title: 'Flutter Developer',
       company: 'Codeedex Technologies',
       location: 'Perinthalmanna',
       period: 'Mar 2025 – Present',
@@ -40,7 +40,7 @@ const Experience = () => {
       responsibilities: [
         'Built Flutter apps using Sqflite, Hive, and Firebase',
         'Integrated REST APIs and used GitHub for version control',
-        'Applied Provider for state management',
+        'Applied Provider,Getx and Bloc for state management',
       ],
     },
   ];
