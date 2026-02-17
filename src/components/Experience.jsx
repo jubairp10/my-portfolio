@@ -9,14 +9,28 @@ const Experience = () => {
   const experiences = [
     {
       title: 'Flutter Developer',
+      company: 'Code51',
+      location: 'Mangalore',
+      period: 'Jan 2026 – Present',
+      current: true,
+      logo: '/code51.png',
+      responsibilities: [
+        'Developing cross-platform mobile applications using Flutter and Dart',
+        'Integrating REST APIs and third-party services for enhanced functionality',
+        'Collaborating with cross-functional teams to deliver high-quality mobile solutions',
+      ],
+    },
+    {
+      title: 'Jr. Flutter Developer',
       company: 'Codeedex Technologies',
       location: 'Perinthalmanna',
-      period: 'Mar 2025 – Present',
-      current: true,
+      period: 'Mar 2025 – Jan 2026',
+      current: false,
       responsibilities: [
-        'Worked collaboratively with designers and backend engineers to develop Flutter apps aligned with business goals',
-        'Built and deployed cross-platform mobile apps for iOS & Android',
-        'Published apps on Google Play Console',
+        'Developed and published Flutter-based e-commerce mobile applications for iOS & Android',
+        'Integrated Firebase Authentication, FCM, and WhatsApp OTP for secure authentication',
+        'Built and deployed cross-platform mobile apps on Google Play Store and App Store',
+        'Worked collaboratively with designers and backend engineers to develop apps aligned with business goals',
       ],
     },
     {
@@ -89,9 +103,8 @@ const Experience = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className={`relative flex items-center ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
+                className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
               >
                 {/* Timeline dot */}
                 <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 z-10 ring-4 ring-slate-900" />
@@ -99,9 +112,8 @@ const Experience = () => {
                 {/* Content card */}
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className={`glass-effect p-6 rounded-2xl ml-20 md:ml-0 md:w-5/12 ${
-                    index % 2 === 0 ? 'md:mr-auto md:pr-12' : 'md:ml-auto md:pl-12'
-                  } card-hover`}
+                  className={`glass-effect p-6 rounded-2xl ml-20 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:pr-12' : 'md:ml-auto md:pl-12'
+                    } card-hover`}
                 >
                   {/* Header */}
                   <div className="mb-4">
@@ -114,7 +126,16 @@ const Experience = () => {
                         </span>
                       )}
                     </div>
-                    <p className="text-lg text-cyan-400 font-semibold">{exp.company}</p>
+                    <div className="flex items-center gap-3">
+                      {exp.logo && (
+                        <img
+                          src={exp.logo}
+                          alt={`${exp.company} logo`}
+                          className="h-8 w-auto object-contain"
+                        />
+                      )}
+                      <p className="text-lg text-cyan-400 font-semibold">{exp.company}</p>
+                    </div>
                   </div>
 
                   {/* Details */}

@@ -64,19 +64,22 @@ const About = () => {
           >
             <div className="glass-effect p-8 rounded-2xl">
               <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                I'm a passionate <span className="text-cyan-400 font-semibold">Flutter Developer</span> with 
-                hands-on experience in building and deploying cross-platform mobile applications. Currently 
-                working as a Jr. Flutter Developer at <span className="text-cyan-400 font-semibold">Codeedex Technologies</span>, 
-                I specialize in creating seamless user experiences with clean, maintainable code.
+                I'm a passionate <span className="text-cyan-400 font-semibold">Flutter Developer</span> with
+                hands-on experience in building and deploying cross-platform mobile applications. Currently
+                working as a Flutter Developer at <span className="text-cyan-400 font-semibold">Code51</span> in
+                Mangalore (since January 2026), I specialize in creating seamless user experiences with clean,
+                maintainable code.
               </p>
               <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                My journey in mobile development started with an internship at Luminar Technolab, where I 
-                honed my skills in Flutter, Firebase, and state management. Since then, I've worked on 
-                multiple production apps, including apps published on the Google Play Store.
+                My journey in mobile development started with an internship at Luminar Technolab, where I
+                honed my skills in Flutter, Firebase, and state management. I then worked as a Jr. Flutter
+                Developer at Codeedex Technologies, where I developed and published multiple production apps
+                for both iOS and Android platforms, including e-commerce applications with advanced features
+                like payment gateway integration and real-time notifications.
               </p>
               <p className="text-gray-300 text-lg leading-relaxed">
-                I'm constantly learning and exploring new technologies to deliver innovative solutions. 
-                My goal is to create applications that not only meet business requirements but also 
+                I'm constantly learning and exploring new technologies to deliver innovative solutions.
+                My goal is to create applications that not only meet business requirements but also
                 provide exceptional user experiences.
               </p>
             </div>
@@ -116,7 +119,7 @@ const About = () => {
               {[
                 { number: '2+', label: 'Years Experience' },
                 { number: '10+', label: 'Projects Completed' },
-                { number: '3', label: 'Companies Worked' },
+                { number: '4', label: 'Companies Worked' },
               ].map((stat, index) => (
                 <div key={index} className="glass-effect p-4 rounded-xl text-center">
                   <div className="text-3xl font-bold gradient-text mb-1">{stat.number}</div>

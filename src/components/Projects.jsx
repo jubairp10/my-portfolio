@@ -1,13 +1,26 @@
- import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiCode } from 'react-icons/fi';
-import { SiFlutter, SiFirebase, SiDart, SiGoogleplay, SiAppstore } from 'react-icons/si';
+import React, { useRef, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { FiGithub, FiExternalLink, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { SiGoogleplay, SiAppstore } from 'react-icons/si';
 
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [expandedProject, setExpandedProject] = useState(null);
 
   const projects = [
+    {
+      title: 'Coffee Labs E-Commerce',
+      description: 'A comprehensive coffee e-commerce mobile application for a Saudi Arabia-based company. Features WhatsApp OTP authentication, Tamara payment gateway integration for Buy Now Pay Later, Firebase Authentication, FCM push notifications, and intuitive UI with categorized browsing for coffee materials and brewing accessories.',
+      tags: ['Flutter', 'Dart', 'GetX', 'Firebase', 'FCM', 'WhatsApp OTP', 'REST API', 'Payment Gateway', 'iOS', 'Android'],
+      links: {
+        appstore: 'https://apps.apple.com/in/app/coffee-labs/id6752988420',
+        playstore: 'https://play.google.com/store/apps/details?id=com.codeedex.coffeelabs'
+      },
+      logo: 'https://play-lh.googleusercontent.com/ZLSISAuyiNygev03CY3FFhQyTLyrBREr7N2xIVpzdO1rV9x8l_rcjkJF9edxNqYb3iXuBcWPFvDrPj33-30CqA=w240-h480-rw',
+      gradient: 'from-amber-600 to-orange-700',
+      featured: true,
+    },
     {
       title: 'Syopi E-commerce Fashion Store',
       description: 'A modern e-commerce fashion app offering trendy clothing, deals, and seamless shopping experience. Features include product listings, authentication, cart, and order management with a clean architecture using Provider for state management.',
@@ -16,7 +29,9 @@ const Projects = () => {
         appstore: 'https://apps.apple.com/in/app/syopi/id6747420245',
         playstore: 'https://play.google.com/store/apps/details?id=com.syopi.usernew'
       },
+      logo: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/6a/42/b6/6a42b669-b9ba-4a06-6b4d-5a8ac4de8b2e/Placeholder.mill/200x200bb-75.webp',
       gradient: 'from-pink-500 to-rose-600',
+      featured: true,
     },
     {
       title: 'KeyRoute',
@@ -25,7 +40,9 @@ const Projects = () => {
       links: {
         playstore: 'https://play.google.com/store/apps/details?id=com.keyroute.app',
       },
+      logo: 'https://play-lh.googleusercontent.com/c-mgOAmRLY57utCyrOS02f3NOqoW3Tb2JqL_Vw1-Rz4Nv9lo-0cLjZMMA3CML9qBiLU=w240-h480-rw',
       gradient: 'from-cyan-500 to-blue-600',
+      featured: false,
     },
     {
       title: 'Adacode Student App',
@@ -33,6 +50,7 @@ const Projects = () => {
       tags: ['Flutter', 'Firebase', 'YouTube API', 'Provider', 'Real-time'],
       links: {},
       gradient: 'from-purple-500 to-pink-600',
+      featured: false,
     },
     {
       title: 'Skill Free 2.0',
@@ -42,6 +60,7 @@ const Projects = () => {
         github: 'https://github.com/jubairp10/skillfree',
       },
       gradient: 'from-orange-500 to-red-600',
+      featured: false,
     },
     {
       title: 'Simple Calculator App',
@@ -51,6 +70,7 @@ const Projects = () => {
         github: 'https://github.com/jubairp10/calculator',
       },
       gradient: 'from-green-500 to-teal-600',
+      featured: false,
     },
   ];
 
@@ -59,18 +79,22 @@ const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
+  };
+
+  const toggleExpand = (index) => {
+    setExpandedProject(expandedProject === index ? null : index);
   };
 
   return (
@@ -83,8 +107,7 @@ const Projects = () => {
         >
           <h2 className="section-title gradient-text">Featured Projects</h2>
           <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
-            Here are some of my recent projects that showcase my skills in Flutter development, 
-            API integration, and creating user-friendly mobile applications.
+            Showcasing my recent work in mobile development, from e-commerce platforms to utility applications.
           </p>
         </motion.div>
 
@@ -92,61 +115,122 @@ const Projects = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {projects.map((project, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -10 }}
-              className="glass-effect rounded-2xl overflow-hidden group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className={`glass-effect rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/30 transition-all duration-300 flex flex-col ${project.featured ? 'md:col-span-2 lg:col-span-1' : ''
+                }`}
             >
-              {/* Project header with gradient */}
-              <div className={`h-2 bg-gradient-to-r ${project.gradient}`} />
+              {/* Gradient header with logo */}
+              <div className={`h-32 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+                <div className="absolute inset-0 bg-black/20" />
 
-              <div className="p-6">
-                {/* Title and icon */}
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
+                {/* Logo */}
+                {project.logo && (
+                  <div className="absolute top-4 left-4">
+                    <div className="w-16 h-16 bg-white rounded-xl p-2 shadow-lg">
+                      <img
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                   </div>
-                  <div className="p-3 glass-effect rounded-xl">
-                    <FiCode className="text-cyan-400" size={24} />
-                  </div>
+                )}
+
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-xl font-bold text-white drop-shadow-lg">
+                    {project.title}
+                  </h3>
                 </div>
+                {project.featured && (
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30">
+                      Featured
+                    </span>
+                  </div>
+                )}
+              </div>
 
+              {/* Content */}
+              <div className="p-6 flex-1 flex flex-col">
                 {/* Description */}
-                <p className="text-gray-400 mb-6 leading-relaxed">
-                  {project.description}
-                </p>
+                <div className="mb-4">
+                  <p className={`text-gray-400 text-sm leading-relaxed ${expandedProject === index ? '' : 'line-clamp-2'}`}>
+                    {project.description}
+                  </p>
+                  <button
+                    onClick={() => toggleExpand(index)}
+                    className="flex items-center gap-1 text-cyan-400 text-xs mt-2 hover:text-cyan-300 transition-colors"
+                  >
+                    {expandedProject === index ? (
+                      <>
+                        <span>Show less</span>
+                        <FiChevronUp size={14} />
+                      </>
+                    ) : (
+                      <>
+                        <span>Read more</span>
+                        <FiChevronDown size={14} />
+                      </>
+                    )}
+                  </button>
+                </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 text-sm bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20"
+                <AnimatePresence>
+                  {expandedProject === index ? (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex flex-wrap gap-2 mb-4"
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                      {project.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 text-xs bg-cyan-500/10 text-cyan-400 rounded-md border border-cyan-500/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tags.slice(0, 4).map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 text-xs bg-cyan-500/10 text-cyan-400 rounded-md border border-cyan-500/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {project.tags.length > 4 && (
+                        <span className="px-2 py-1 text-xs bg-white/5 text-gray-400 rounded-md">
+                          +{project.tags.length - 4} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </AnimatePresence>
 
                 {/* Links */}
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {project.links.github && (
                     <motion.a
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:bg-cyan-500/20 transition-all duration-300"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300 transition-all duration-300 border border-white/10"
                     >
-                      <FiGithub size={20} />
-                      <span className="text-sm">Code</span>
+                      <FiGithub size={14} />
+                      <span>Code</span>
                     </motion.a>
                   )}
                   {project.links.playstore && (
@@ -154,12 +238,12 @@ const Projects = () => {
                       href={project.links.playstore}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:bg-cyan-500/20 transition-all duration-300"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-green-500/10 hover:bg-green-500/20 rounded-lg text-xs text-green-400 transition-all duration-300 border border-green-500/20"
                     >
-                      <SiGoogleplay size={20} />
-                      <span className="text-sm">Play Store</span>
+                      <SiGoogleplay size={14} />
+                      <span>Play Store</span>
                     </motion.a>
                   )}
                   {project.links.appstore && (
@@ -167,12 +251,12 @@ const Projects = () => {
                       href={project.links.appstore}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:bg-cyan-500/20 transition-all duration-300"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/20 rounded-lg text-xs text-blue-400 transition-all duration-300 border border-blue-500/20"
                     >
-                      <SiAppstore size={20} />
-                      <span className="text-sm">App Store</span>
+                      <SiAppstore size={14} />
+                      <span>App Store</span>
                     </motion.a>
                   )}
                   {project.links.demo && (
@@ -180,21 +264,16 @@ const Projects = () => {
                       href={project.links.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:bg-cyan-500/20 transition-all duration-300"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-lg text-xs text-cyan-400 transition-all duration-300 border border-cyan-500/20"
                     >
-                      <FiExternalLink size={20} />
-                      <span className="text-sm">Demo</span>
+                      <FiExternalLink size={14} />
+                      <span>Demo</span>
                     </motion.a>
                   )}
                 </div>
               </div>
-
-              {/* Hover effect overlay */}
-              <motion.div
-                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`}
-              />
             </motion.div>
           ))}
         </motion.div>
@@ -210,7 +289,7 @@ const Projects = () => {
             href="https://github.com/jubairp10"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 btn-secondary"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
           >
             <FiGithub size={20} />
             View More on GitHub
