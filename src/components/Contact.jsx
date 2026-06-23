@@ -1,266 +1,165 @@
-import React, { useRef, useState } from 'react';
+'use client';
+
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin, FiSend, FiLinkedin, FiGithub } from 'react-icons/fi';
+import { FiArrowUpRight } from 'react-icons/fi';
+import SectionHeader from '@/components/SectionHeader';
+
+const details = [
+  { label: 'Phone', value: '+91 9072220239', href: 'tel:+919072220239' },
+  { label: 'Location', value: 'Pattambi, Palakkad, Kerala', href: null },
+  { label: 'GitHub', value: 'github.com/jubairp10', href: 'https://github.com/jubairp10' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/jubair-p', href: 'http://www.linkedin.com/in/jubair-p' },
+];
 
 const Contact = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const inView = useInView(ref, { once: true, margin: '-100px' });
 
-  const [formStatus, setFormStatus] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to a backend service
-    // For now, we'll just show a success message
-    setFormStatus('success');
+    setStatus('success');
     setTimeout(() => {
-      setFormStatus('');
+      setStatus('');
       setFormData({ name: '', email: '', subject: '', message: '' });
     }, 3000);
   };
 
-  const contactInfo = [
-    {
-      icon: FiMail,
-      title: 'Email',
-      value: 'jubijubairp@gmail.com',
-      link: 'mailto:jubijubairp@gmail.com',
-      color: 'from-red-500 to-pink-600',
-    },
-    {
-      icon: FiPhone,
-      title: 'Phone',
-      value: '+91 9072220239',
-      link: 'tel:+919072220239',
-      color: 'from-green-500 to-emerald-600',
-    },
-    {
-      icon: FiMapPin,
-      title: 'Location',
-      value: 'Pattambi, Palakkad, Kerala',
-      link: null,
-      color: 'from-blue-500 to-cyan-600',
-    },
-    {
-      icon: FiLinkedin,
-      title: 'LinkedIn',
-      value: 'linkedin.com/in/jubair-p',
-      link: 'http://www.linkedin.com/in/jubair-p',
-      color: 'from-blue-600 to-blue-800',
-    },
-  ];
-
   return (
-    <section id="contact" className="py-20 relative" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 md:py-32" ref={ref}>
+      <div className="section">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title gradient-text">Get In Touch</h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Feel free to reach out. 
-            I'm always open to discussing new opportunities and ideas.
-          </p>
+          <SectionHeader index="07" label="Contact" title="Let’s build something." />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Information */}
+        <div className="mt-12 grid gap-14 md:grid-cols-12 md:gap-10">
+          {/* Signature + details */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="md:col-span-5"
           >
-            <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
-              <p className="text-gray-400 mb-8">
-                Feel free to reach out through any of these channels. I typically respond within 24 hours.
-              </p>
+            <p className="text-ink-soft">Have a project in mind, or just want to say hi?</p>
+            <a
+              href="mailto:jubijubairp@gmail.com"
+              className="mt-3 block break-all font-serif text-3xl leading-tight text-ink transition-colors duration-300 hover:text-accent md:text-4xl"
+            >
+              jubijubairp@gmail.com
+            </a>
 
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    whileHover={{ x: 10 }}
-                  >
-                    {info.link ? (
-                      <a
-                        href={info.link}
-                        target={info.link.startsWith('http') ? '_blank' : '_self'}
-                        rel="noopener noreferrer"
-                        className="flex items-start gap-4 p-4 glass-effect rounded-xl hover:bg-white/5 transition-all duration-300 group"
-                      >
-                        <div className={`p-3 bg-gradient-to-br ${info.color} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
-                          <info.icon size={24} className="text-white" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-1">{info.title}</p>
-                          <p className="text-white font-medium group-hover:text-cyan-400 transition-colors duration-300">
-                            {info.value}
-                          </p>
-                        </div>
-                      </a>
-                    ) : (
-                      <div className="flex items-start gap-4 p-4 glass-effect rounded-xl">
-                        <div className={`p-3 bg-gradient-to-br ${info.color} rounded-lg`}>
-                          <info.icon size={24} className="text-white" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-1">{info.title}</p>
-                          <p className="text-white font-medium">{info.value}</p>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Social Links */}
-              <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-gray-400 mb-4">Connect with me on social media:</p>
-                <div className="flex gap-4">
-                  <motion.a
-                    href="https://github.com/jubairp10"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-4 glass-effect rounded-xl hover:bg-cyan-500/20 transition-all duration-300"
-                  >
-                    <FiGithub size={24} className="text-cyan-400" />
-                  </motion.a>
-                  <motion.a
-                    href="http://www.linkedin.com/in/jubair-p"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-4 glass-effect rounded-xl hover:bg-cyan-500/20 transition-all duration-300"
-                  >
-                    <FiLinkedin size={24} className="text-cyan-400" />
-                  </motion.a>
-                </div>
-              </div>
-            </div>
+            <ul className="mt-10">
+              {details.map((d, i) => (
+                <li
+                  key={i}
+                  className="flex items-baseline justify-between gap-4 border-t border-ink/15 py-4"
+                >
+                  <span className="label">{d.label}</span>
+                  {d.href ? (
+                    <a
+                      href={d.href}
+                      target={d.href.startsWith('http') ? '_blank' : '_self'}
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-ink transition-colors hover:text-accent"
+                    >
+                      {d.value} <FiArrowUpRight className="text-xs" />
+                    </a>
+                  ) : (
+                    <span className="text-ink">{d.value}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="md:col-span-7"
           >
-            <form onSubmit={handleSubmit} className="glass-effect p-8 rounded-2xl space-y-6">
-              <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
-
-              {/* Name */}
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500 transition-colors duration-300"
-                  placeholder="John Doe"
-                />
+            <form onSubmit={handleSubmit} className="grid gap-6">
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="name" className="label">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="field mt-2"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="label">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="field mt-2"
+                    placeholder="john@example.com"
+                  />
+                </div>
               </div>
 
-              {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Email
-                </label>
+                <label htmlFor="subject" className="label">Subject</label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500 transition-colors duration-300"
-                  placeholder="john@example.com"
-                />
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
                   id="subject"
                   name="subject"
+                  type="text"
+                  required
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500 transition-colors duration-300"
-                  placeholder="Project Inquiry"
+                  className="field mt-2"
+                  placeholder="Project inquiry"
                 />
               </div>
 
-              {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
-                </label>
+                <label htmlFor="message" className="label">Message</label>
                 <textarea
                   id="message"
                   name="message"
+                  rows="4"
+                  required
                   value={formData.message}
                   onChange={handleChange}
-                  required
-                  rows="5"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500 transition-colors duration-300 resize-none"
-                  placeholder="Tell me about your project..."
+                  className="field mt-2 resize-none"
+                  placeholder="Tell me about your project…"
                 />
               </div>
 
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full btn-primary flex items-center justify-center gap-2"
-              >
-                <FiSend size={20} />
-                Send Message
-              </motion.button>
-
-              {/* Success Message */}
-              {formStatus === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center"
-                >
-                  Message sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
+              <div className="flex items-center gap-5">
+                <button type="submit" className="btn-solid">
+                  Send message <FiArrowUpRight />
+                </button>
+                {status === 'success' && (
+                  <motion.span
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="label text-accent"
+                  >
+                    ✦ Sent — talk soon
+                  </motion.span>
+                )}
+              </div>
             </form>
           </motion.div>
         </div>
