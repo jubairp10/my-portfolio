@@ -1,231 +1,151 @@
-import React from 'react';
+'use client';
+
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiDownload } from 'react-icons/fi';
-import { SiFlutter, SiDart, SiFirebase } from 'react-icons/si';
+import { FiArrowDownRight, FiArrowUpRight, FiDownload } from 'react-icons/fi';
+
+const Hero3D = dynamic(() => import('@/components/three/Hero3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 grid place-items-center">
+      <div className="h-28 w-28 rounded-full border border-accent/40" />
+    </div>
+  ),
+});
+
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/jubairp10' },
+  { label: 'LinkedIn', href: 'http://www.linkedin.com/in/jubair-p' },
+  { label: 'Email', href: 'mailto:jubijubairp@gmail.com' },
+];
+
+const fade = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
 const Hero = () => {
-  const socialLinks = [
-    { icon: FiGithub, href: 'https://github.com/jubairp10', label: 'GitHub' },
-    { icon: FiLinkedin, href: 'http://www.linkedin.com/in/jubair-p', label: 'LinkedIn' },
-    { icon: FiMail, href: 'mailto:jubijubairp@gmail.com', label: 'Email' },
-  ];
-
-  const floatingIcons = [
-    { Icon: SiFlutter, delay: 0, color: 'text-blue-400' },
-    { Icon: SiDart, delay: 0.2, color: 'text-cyan-400' },
-    { Icon: SiFirebase, delay: 0.4, color: 'text-orange-400' },
-  ];
-
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-cyan-400 rounded-full opacity-20"
-            animate={{
-              y: [0, -1000],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: '100%',
-            }}
-          />
-        ))}
-      </div>
+    <section id="home" className="relative flex min-h-screen flex-col justify-center pb-16 pt-28">
+      <div className="section w-full">
+        {/* Kicker */}
+        <motion.div
+          variants={fade}
+          initial="hidden"
+          animate="show"
+          className="flex items-center justify-between border-b border-ink/15 pb-4"
+        >
+          <span className="label">Jubair&nbsp;P — Portfolio ’26</span>
+          <span className="label hidden sm:inline">Flutter Developer · Kerala, India</span>
+        </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left side - Text content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-left"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mb-4"
-            >
-              <span className="text-cyan-400 text-lg font-semibold">Hello, I'm</span>
-            </motion.div>
-
+        <div className="grid gap-12 pt-10 md:grid-cols-12 md:gap-10">
+          {/* Left — statement */}
+          <div className="md:col-span-8">
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-5xl md:text-7xl font-bold mb-4"
+              variants={fade}
+              custom={1}
+              initial="hidden"
+              animate="show"
+              className="display text-balance text-[clamp(2.75rem,8vw,7rem)] text-ink"
             >
-              <span className="gradient-text">JUBAIR P</span>
+              Flutter developer crafting{' '}
+              <span className="italic text-accent">cross-platform</span> mobile apps.
             </motion.h1>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-2xl md:text-3xl text-gray-300 mb-6"
-            >
-              Flutter Developer
-            </motion.h2>
-
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-gray-400 text-lg mb-8 max-w-xl"
+              variants={fade}
+              custom={2}
+              initial="hidden"
+              animate="show"
+              className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft"
             >
-              Passionate about building beautiful, cross-platform mobile applications with Flutter. 
-              Experienced in creating seamless user experiences and scalable solutions.
+              I design and build beautiful, high-performance apps for iOS and Android —
+              turning ideas into seamless, production-ready experiences.
             </motion.p>
 
-            {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-4 mb-8 text-sm text-gray-400"
+              variants={fade}
+              custom={3}
+              initial="hidden"
+              animate="show"
+              className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <div className="flex items-center gap-2">
-                <FiMapPin className="text-cyan-400" />
-                <span>Pattambi, Kerala</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiPhone className="text-cyan-400" />
-                <span>+91 9072220239</span>
-              </div>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4 mb-8"
-            >
-              <a href="#contact" className="btn-primary flex items-center gap-2">
-                Get In Touch
+              <a href="#contact" className="btn-solid">
+                Get in touch <FiArrowUpRight />
               </a>
-              <a 
-                href="/resume.pdf" 
-                download 
-                className="btn-secondary flex items-center gap-2"
-              >
-                <FiDownload />
-                Download Resume
+              <a href="/resume.pdf" download className="btn-outline">
+                Résumé <FiDownload />
               </a>
             </motion.div>
 
-            {/* Social Links */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex gap-4"
+              variants={fade}
+              custom={4}
+              initial="hidden"
+              animate="show"
+              className="mt-10 flex flex-wrap gap-x-6 gap-y-2"
             >
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-3 glass-effect rounded-full hover:bg-cyan-500/20 transition-all duration-300"
-                  aria-label={label}
+                  className="label inline-flex items-center gap-1 hover:text-accent"
                 >
-                  <Icon size={24} className="text-cyan-400" />
-                </motion.a>
+                  {s.label} <FiArrowUpRight className="text-[10px]" />
+                </a>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Right side - Profile image with animated border */}
+          {/* Right rail — wireframe + portrait */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative flex justify-center items-center"
+            variants={fade}
+            custom={2}
+            initial="hidden"
+            animate="show"
+            className="md:col-span-4"
           >
-            <div className="relative">
-              {/* Animated gradient border */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 blur-xl opacity-75"
-                style={{ padding: '4px' }}
-              />
-              
-              {/* Profile image container */}
-              <div className="relative glass-effect rounded-full p-2 w-80 h-80 flex items-center justify-center">
-                <div className="w-full h-full rounded-full overflow-hidden">
-                  <img 
-                    src="/my_photo.jpg" 
-                    alt="Jubair P" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Floating tech icons */}
-              {floatingIcons.map(({ Icon, delay, color }, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    y: [0, -20, 0],
-                  }}
-                  transition={{
-                    opacity: { delay: 1 + delay },
-                    scale: { delay: 1 + delay },
-                    y: {
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: delay,
-                    },
-                  }}
-                  className={`absolute glass-effect p-4 rounded-2xl ${color}`}
-                  style={{
-                    top: index === 0 ? '10%' : index === 1 ? '50%' : '80%',
-                    right: index === 1 ? '-10%' : '80%',
-                  }}
-                >
-                  <Icon size={32} />
-                </motion.div>
-              ))}
+            <div className="relative aspect-square w-full">
+              <Hero3D />
             </div>
+
+            <figure className="mt-2">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-ink/20">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/my_photo.jpg"
+                  alt="Jubair P"
+                  className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                />
+              </div>
+              <figcaption className="label mt-3 flex items-center justify-between">
+                <span>Based in Kerala</span>
+                <span className="text-accent">Available ’26</span>
+              </figcaption>
+            </figure>
           </motion.div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{ 
-            opacity: { delay: 1.5 },
-            y: { duration: 2, repeat: Infinity }
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-cyan-400 rounded-full flex justify-center">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-3 bg-cyan-400 rounded-full mt-2"
-            />
-          </div>
-        </motion.div>
       </div>
+
+      {/* Scroll hint */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="section mt-14 flex w-full items-center gap-2"
+      >
+        <span className="label inline-flex items-center gap-1 hover:text-accent">
+          Scroll to explore <FiArrowDownRight />
+        </span>
+      </motion.a>
     </section>
   );
 };

@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased min-h-screen overflow-x-hidden;
+    font-feature-settings: 'ss01', 'cv01';
+  }
+
+  ::selection {
+    @apply bg-accent text-paper-100;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif font-normal text-ink;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  /* Monospace kicker / meta label */
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-ink-soft;
+  }
+
+  /* Oversized serif display */
+  .display {
+    @apply font-serif leading-[0.95] tracking-[-0.02em];
+  }
+
+  /* Hairline rule */
+  .rule {
+    @apply border-t border-ink/15;
+  }
+
+  /* Accent text */
+  .accent {
+    @apply text-accent;
+  }
+
+  /* Editorial section wrapper */
+  .section {
+    @apply mx-auto max-w-6xl px-6 md:px-10;
+  }
+
+  /* Primary solid button (pill) */
+  .btn-solid {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3
+           font-mono text-xs uppercase tracking-[0.16em] text-paper-100
+           transition-colors duration-300 hover:bg-accent;
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/30 px-6 py-3
+           font-mono text-xs uppercase tracking-[0.16em] text-ink
+           transition-colors duration-300 hover:border-accent hover:text-accent;
+  }
+
+  /* Underlined inline link */
+  .link-line {
+    @apply relative inline-flex items-center gap-1 text-ink transition-colors duration-300 hover:text-accent;
+    text-underline-offset: 4px;
+  }
+
+  /* Mono tag */
+  .tag {
+    @apply font-mono text-[11px] tracking-wide text-ink-soft;
+  }
+
+  /* Underline-style form field */
+  .field {
+    @apply w-full border-0 border-b border-ink/25 bg-transparent px-0 py-2.5
+           text-ink placeholder-ink-faint transition-colors duration-300
+           focus:border-accent focus:outline-none focus:ring-0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #efeadf;
+}
+::-webkit-scrollbar-thumb {
+  background: #16140f;
+  border: 3px solid #efeadf;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b3aff;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
