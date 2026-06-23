@@ -10,6 +10,18 @@ const Projects = () => {
 
   const projects = [
     {
+      title: 'Gulf Eshara',
+      description: 'A modern digital magazine platform that brings together insightful writing, social commentary, and community-driven content. Discover carefully curated monthly editions covering topics that matter—from culture and lifestyle to social awareness and thought-provoking discussions. Features high-quality articles and opinion pieces, a clean and easy-to-use interface, and an optimized reading experience built to inspire readers and connect communities through powerful storytelling.',
+      tags: ['Flutter', 'Dart', 'Digital Magazine', 'REST API', 'Firebase', 'iOS', 'Android'],
+      links: {
+        appstore: 'https://apps.apple.com/in/app/gulf-eshara/id6761815681',
+        playstore: 'https://play.google.com/store/apps/details?id=com.codefiftyone.gulfesharaapp'
+      },
+      logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c1/bf/56/c1bf56ec-59a0-629d-6445-5a5e676cca96/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/256x256bb.jpg',
+      gradient: 'from-violet-600 to-indigo-700',
+      featured: true,
+    },
+    {
       title: 'Coffee Labs E-Commerce',
       description: 'A comprehensive coffee e-commerce mobile application for a Saudi Arabia-based company. Features WhatsApp OTP authentication, Tamara payment gateway integration for Buy Now Pay Later, Firebase Authentication, FCM push notifications, and intuitive UI with categorized browsing for coffee materials and brewing accessories.',
       tags: ['Flutter', 'Dart', 'GetX', 'Firebase', 'FCM', 'WhatsApp OTP', 'REST API', 'Payment Gateway', 'iOS', 'Android'],

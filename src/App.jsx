@@ -9,6 +9,9 @@ import Education from './components/Education';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollProgress from './components/ScrollProgress';
+import CursorGlow from './components/CursorGlow';
+import ParticleField from './components/ParticleField';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -38,8 +41,13 @@ function App() {
 
   return (
     <div className="animated-gradient min-h-screen">
+      {/* Global modern-look animations */}
+      <ParticleField />
+      <ScrollProgress />
+      <CursorGlow />
+
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Experience />
